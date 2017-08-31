@@ -67,25 +67,27 @@ public class MainController {
     }
 
 
-    @PostMapping("/actorstomovie/{id}")
-    public String addActor(@ModelAttribute("mov") String mov, HttpServletRequest servletRequest)
+//    @PostMapping("/actorstomovie/{id}")
+//    public String addActor(@ModelAttribute("mov") String mov, HttpServletRequest servletRequest)
+//    {
+//        return "redirect:/";
+//
+//    }
+
+    @GetMapping("/addmoviestoactor/{id}")
+    public String addMovie(@PathVariable("id") long actorID, Model model)
     {
-        return "redirect:/";
-
-    }
-
-    @GetMapping("/addactorstomovie")
-    public String showAddActorsToMovie(Model model){
-        model.addAttribute("actorlist",actorRepository.findAll());
+        model.addAttribute("actor",actorRepository.findOne(new Long(actorID)));
+        model.addAttribute("movieList",movieRepository.findAll());
         return "movieaddactor";
     }
 
-    @PostMapping("/addactorstomovie")
-    public String addActorsToMovie(@ModelAttribute("anActor") Actor a, @ModelAttribute("mov") Movie m,Model model) {
-        model.addAttribute("actorList", actorRepository.findAll());
-        model.addAttribute("movieList", movieRepository.findAll());
-        return "redirect:/";
-    }
+//    @PostMapping("/addactorstomovie")
+//    public String addActorsToMovie(@ModelAttribute("anActor") Actor a, @ModelAttribute("mov") Movie m,Model model) {
+//        model.addAttribute("actorList", actorRepository.findAll());
+//        model.addAttribute("movieList", movieRepository.findAll());
+//        return "redirect:/";
+//    }
 
     @PostMapping("/addmoviestoactor/{movid}")
     public String addMoviesToActor(@RequestParam("actors") String actorID, @PathVariable("movid") long movieID, Model model)
@@ -95,6 +97,19 @@ public class MainController {
         Movie m = movieRepository.findOne(new Long(movieID));
         m.addActor(actorRepository.findOne(new Long(actorID)));
         movieRepository.save(m);
+        model.addAttribute("actorList",actorRepository.findAll());
+        model.addAttribute("movieList",movieRepository.findAll());
+        return "redirect:/";
+    }
+
+    @PostMapping("/addactorstomovie/{actorid}")
+    public String addActorsToMovies(@RequestParam("movie") String movieID, @PathVariable("actor") long actorID, Model model)
+    {
+        System.out.println("Actor ID"+actorID);
+        System.out.println("Movie ID"+movieID);
+        Actor a = actorRepository.findOne(new Long(actorID));
+        a.addMovie(movieRepository.findOne(new Long(movieID)));
+        actorRepository.save(a);
         model.addAttribute("actorList",actorRepository.findAll());
         model.addAttribute("movieList",movieRepository.findAll());
         return "redirect:/";
