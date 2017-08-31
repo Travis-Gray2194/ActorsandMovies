@@ -22,7 +22,8 @@ public class MainController {
     @RequestMapping("/")
     public String showIndex(Model model)
     {
-
+        model.addAttribute("gotmovies",movieRepository.count());
+        model.addAttribute("gotactors",actorRepository.count());
         model.addAttribute("actorList",actorRepository.findAll());
         model.addAttribute("movieList",movieRepository.findAll());
         return "index";
@@ -40,7 +41,7 @@ public class MainController {
     public String saveMovie(@ModelAttribute("movie") Movie movie)
     {
         movieRepository.save(movie);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/addactor")
@@ -51,10 +52,10 @@ public class MainController {
     }
 
     @PostMapping("/addactor")
-    public String saveMovie(@ModelAttribute("movie") Movie movie)
+    public String saveActor(@ModelAttribute("actor") Actor actor)
     {
-        movieRepository.save(movie);
-        return "index";
+        actorRepository.save(actor);
+        return "redirect:/";
     }
 
     @GetMapping("/addactorstomovie/{id}")
@@ -69,7 +70,7 @@ public class MainController {
     @PostMapping("/actorstomovie/{id}")
     public String addActor(@ModelAttribute("mov") String mov, HttpServletRequest servletRequest)
     {
-        return "index";
+        return "redirect:/";
 
     }
 
@@ -80,13 +81,11 @@ public class MainController {
     }
 
     @PostMapping("/addactorstomovie")
-    public String addActorsToMovie(@ModelAttribute("anActor") Actor a, @ModelAttribute("mov") Movie m,Model model)
-    {
-        model.addAttribute("actorList",actorRepository.findAll());
-        model.addAttribute("movieList",movieRepository.findAll());
-        return "index";
+    public String addActorsToMovie(@ModelAttribute("anActor") Actor a, @ModelAttribute("mov") Movie m,Model model) {
+        model.addAttribute("actorList", actorRepository.findAll());
+        model.addAttribute("movieList", movieRepository.findAll());
+        return "redirect:/";
     }
-
 
     @PostMapping("/addmoviestoactor/{movid}")
     public String addMoviesToActor(@RequestParam("actors") String actorID, @PathVariable("movid") long movieID, Model model)
@@ -98,7 +97,7 @@ public class MainController {
         movieRepository.save(m);
         model.addAttribute("actorList",actorRepository.findAll());
         model.addAttribute("movieList",movieRepository.findAll());
-        return "index";
+        return "redirect:/";
     }
 
 
