@@ -90,7 +90,9 @@ public class MainController {
 //    }
 
     @PostMapping("/addmoviestoactor/{movid}")
-    public String addMoviesToActor(@RequestParam("actors") String actorID, @PathVariable("movid") long movieID, Model model)
+    public String addMoviesToActor(@RequestParam("actors") String actorID, @PathVariable("movid") long movieID,  @ModelAttribute("anActor") Actor a, Model model)
+
+
     {
         System.out.println("Actor ID"+actorID);
         System.out.println("Movie ID"+movieID);
@@ -99,6 +101,7 @@ public class MainController {
         movieRepository.save(m);
         model.addAttribute("actorList",actorRepository.findAll());
         model.addAttribute("movieList",movieRepository.findAll());
+        System.out.println("Actor ID from anActor"+a.getId());
         return "redirect:/";
     }
 
