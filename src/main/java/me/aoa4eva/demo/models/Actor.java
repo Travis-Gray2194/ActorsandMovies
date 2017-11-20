@@ -12,6 +12,7 @@ public class Actor {
     private long id;
     String name;
     String realname;
+    private String headshot;
 
 
     @ManyToMany(mappedBy="cast")
@@ -58,5 +59,13 @@ public class Actor {
     public void addMovie(Movie m)
     {
         movies.add(m);
+    }
+
+    public String getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(String headshot) {
+        this.headshot = headshot;
     }
 }

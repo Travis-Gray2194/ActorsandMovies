@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Actor Database</title>
@@ -17,12 +17,6 @@
              <ul class="navbar-nav mr-auto"></ul>
              <li class="nav-item active">
                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" th:href="@{/addmovie}" th:inline="text">Add Movie</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" th:href="@{/addmovie}" th:inline="text">Add Movie</a>
              </li>
              <li class="nav-item">
                  <a class="nav-link" th:href="@{/addmovie}" th:inline="text">Add Movie</a>
@@ -57,7 +51,7 @@
         <div class="col-md6 col-offset-2" th:each="aMovie:${movieList}" >
 
 
-            <h3 th:text="${aMovie.title}">Movie title</h3><a th:disabled="${gotactors lt 1}" th:href="@{/addactorstomovie/{id}(id=${aMovie.id})}">Add actors</a>
+            <h3 th:text="${aMovie.title}">Movie title</h3><a th:disabled="${gotactors lt 1}" th:href="@{/addactor(id=${aMovie.id})}">Add actors</a>
             <div th:each="anotherActor:${aMovie.cast}">
                     <p th:text="${anotherActor.name}">
                     <p th:text="${anotherActor.realname}">
@@ -65,7 +59,13 @@
         </div>
         <h2>Actors</h2>
         <div th:each="anActor:${actorList}" >
-
+            <span th:text="${anActor.headshot}"></span>
+            <div th:if="${anActor.headshot}">
+                <img th:src="${anActor.headshot}"/>
+                <hr />
+            </div>
+            <h3 th:text="${anActor.name}"></h3>
+            <h4 th:text="${anActor.realname}"></h4>
             <p th:text="${anActor.name}"></p>
         </div>
 

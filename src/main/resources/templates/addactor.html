@@ -1,11 +1,15 @@
-z<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Add Actor</title>
 </head>
+
+<!--Mulitipart/form-data    <indicates that additional data is going to be posted with the form (i.e. the picture). This means that the post-->
+<!--variables for the form will include the file which is uploaded. The uploaded file can be processed, as you wi\\-->
+<!--see in the PostMapping method for the "add" route.-->
 <body>
-    <form class="form-inline" th:action="@{/addactor}" th:object="${actor}" method="post">
+    <form class="form-inline" th:action="@{/addactor/{id}" th:object="${actor}" enctype="multipart/form-data" method="post">
         <input type="hidden" th:field="*{id}" placeholder="Enter actor's stage name">
 
         <div class="form-group">
@@ -16,7 +20,8 @@ z<!DOCTYPE html>
             <label>Actor's real name</label>
             <input type="text" th:field="*{realname}" placeholder = "Enter actor's real name">
         </div>
-  zz     <input type="submit" value="Add Actor">
+        <input type="file" name="file" /><br /><br/>
+        <input type="submit" value="Add Actor">
     </form>
 </body>
 </html>

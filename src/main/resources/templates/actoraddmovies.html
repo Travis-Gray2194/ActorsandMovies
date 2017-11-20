@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Add actors to Movie</title>
@@ -10,13 +10,23 @@
     <input type="text" th:value="${actor.id}">
     <label th:inline="text">Adding actors for [[${actor.name}]]</label>
 
-    <!--<select name="movies">-->
-    <!--<option th:each="aMovie:${movieList}" th:value="${aMovie.id}" th:text="${aMovie.title}"></option>-->
-    <!--</select>-->
+    <select name="movies">
+    <option th:each="aMovie:${movieList}" th:value="${aMovie.id}" th:text="${aMovie.title}"></option>
+    </select>
 
     <select name="actors">
         <option th:each="aMovie:${movieList}" th:value="${aMovie.id}" th:text="${aMovie.title}"></option>
     </select>
+
+    <div class="form-group">
+        <label>Actor's name</label>
+        <input type="text" th:field="*{name}" placeholder="Enter actor's stage name">
+    </div>
+    <div class="form-group">
+        <label>Actor's real name</label>
+        <input type="text" th:field="*{realname}" placeholder = "Enter actor's real name">
+    </div>
+    <input type="file" name="file" /><br /><br/>
 
     <input type="submit" value="Add actors!">
 </form>

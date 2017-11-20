@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+
+<!--The View-->
+<!--list.html-->
+
+<!--This displays actors' names and Pictures, The pictures are displayed using tho image tag, but using a thymoleaf-->
+<!--attribute, th:src, instead of a regular html attribute.-->
+<body>
+<a href="/add">Add an Actor</a>
+<div th:each="actor : ${actors}">
+    <div th:if="${actor.headshot}   != null">
+        <img th:src="${actor.headshot}"/>
+    <hr />
+</div>
+<h3 th:text="${actor.name}"></h3>
+<h4 th:text="${actor.realname}"></h4>
+</div>
+</body>
+</html>
