@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
-<head lang="en">
+<html xmlns:th="htwww.thymeleaf.org">
+<head th:replace="fragments/base::headstuff"lang="en">
     <meta charset="UTF-8"/>
-    <title>Add Actor</title>
+    <title>Add actors to Movie</title>
 </head>
-
-<!--Mulitipart/form-data    <indicates that additional data is going to be posted with the form (i.e. the picture). This means that the post-->
-<!--variables for the form will include the file which is uploaded. The uploaded file can be processed, as you wi\\-->
-<!--see in the PostMapping method for the "add" route.-->
 <body>
-    <form class="form-inline" th:action="@{/addactor/{id}" th:object="${actor}" enctype="multipart/form-data" method="post">
-        <input type="hidden" th:field="*{id}" placeholder="Enter actor's stage name">
+<nav th:replace="fragments/base::thenavbar"></nav>
+<div class="container">
+    <div class="col-md-6 col-md-offset-2">
+        <!--Mulitipart/form-data    <indicates that additional data is going to be posted with the form (i.e. the picture). This means that the post-->
+        <!--variables for the form will include the file which is uploaded. The uploaded file can be processed, as you wi\\-->
+        <!--see in the PostMapping method for the "add" route.-->
+        <form th:action="@{/addactor}" th:object="${actor}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}" placeholder="Enter actor's stage name">
 
-        <div class="form-group">
-            <label>Actor's name</label>
-            <input type="text" th:field="*{name}" placeholder="Enter actor's stage name">
-        </div>
-        <div class="form-group">
-            <label>Actor's real name</label>
-            <input type="text" th:field="*{realname}" placeholder = "Enter actor's real name">
-        </div>
-        <input type="file" name="file" /><br /><br/>
-        <input type="submit" value="Add Actor">
-    </form>
+            <div class="form-group">
+                <label>Actor's name</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="Enter actor's stage name">
+            </div>
+            <div class="form-group">
+                <label>Actor's real name</label>
+                <input class="form-control" type="text" th:field="*{realname}" placeholder = "Enter actor's real name">
+            </div>
+            <input type="file" name="file"/>
+            <br/>
+            <input call="btn btn-default" type="submit" value="Add Actor">
+        </form>
+    </div>
+</div>
 </body>
 </html>

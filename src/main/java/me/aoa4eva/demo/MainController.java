@@ -132,35 +132,21 @@ public class MainController {
 //        return "redirect:/";
 //    }
 
-    @PostMapping("/addmoviestoactor/{movid}")
-    public String addMoviesToActor(@RequestParam("actors") String actorID, @PathVariable("movid") long movieID,  @ModelAttribute("anActor") Actor a, Model model)
+//    tkljglkfjfg
+    @RequestMapping("/search")
+    public String SearchResult() {
+        //Get actors matching a string
+        Iterable<Actor> actors = actorRepository.findAllByRealnameContainingIgnoreCase("Sandra");
 
+        for (Actor a : actors) {
+            System.out.println(a.getName());
+        }
 
-    {
-        System.out.println("Actor ID"+actorID);
-        System.out.println("Movie ID"+movieID);
-        Movie m = movieRepository.findOne(new Long(movieID));
-        m.addActor(actorRepository.findOne(new Long(actorID)));
-        movieRepository.save(m);
-        model.addAttribute("actorList",actorRepository.findAll());
-        model.addAttribute("movieList",movieRepository.findAll());
-        System.out.println("Actor ID from anActor"+a.getId());
+        //Show the movies the actors were in
+        for (Movie m : movieRepository.findAllByCastIsIn(actors)) {
+            System.out.println(m.getTitle());
+        }
         return "redirect:/";
     }
-
-    @PostMapping("/addactorstomovie/{actorid}")
-    public String addActorsToMovies(@RequestParam("movie") String movieID, @PathVariable("actor") long actorID, Model model)
-    {
-        System.out.println("Actor ID"+actorID);
-        System.out.println("Movie ID"+movieID);
-        Actor a = actorRepository.findOne(new Long(actorID));
-        a.addMovie(movieRepository.findOne(new Long(movieID)));
-        actorRepository.save(a);
-        model.addAttribute("actorList",actorRepository.findAll());
-        model.addAttribute("movieList",movieRepository.findAll());
-        return "redirect:/";
-    }
-
-
 
 }
